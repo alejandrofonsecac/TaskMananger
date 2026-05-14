@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class TaskPostBodyRequest {
 
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "It cannot be empty.")
+    @NotNull(message = "It cannot be null.")
     public String title;
     public String details;
     public StatusTask statusTask;
