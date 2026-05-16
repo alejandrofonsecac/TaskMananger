@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
-@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

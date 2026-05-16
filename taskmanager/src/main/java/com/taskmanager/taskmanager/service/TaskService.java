@@ -1,26 +1,27 @@
 package com.taskmanager.taskmanager.service;
 
-import com.taskmanager.taskmanager.domain.StatusTask;
 import com.taskmanager.taskmanager.domain.Task;
 import com.taskmanager.taskmanager.mapper.TaskMapper;
 import com.taskmanager.taskmanager.repository.TaskRepository;
 import com.taskmanager.taskmanager.requested.TaskPostBodyRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Log4j2
 @Service
 @AllArgsConstructor
 public class TaskService {
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
 
     @Transactional(rollbackOn = Exception.class)
-    public Task createTask(TaskPostBodyRequest taskPostBodyRequest){
-        return taskRepository.save(TaskMapper.INSTANCE.toTask(taskPostBodyRequest));
+    public Task createTask(TaskPostBodyRequest request){
+        Task task = taskMapper.toTask(request);
+        return taskRepository.save(task);
     }
 //
 //    public void delete(Long id){
@@ -31,9 +32,9 @@ public class TaskService {
 //
 //    }
 
-//    public List<Task> listAllTasks(){
-//
-//    }
+    public List<Task> listAllTasks(){
+        return taskRepository.findAll();
+    }
 //
 //    public Task searchTask(Long id){
 //
