@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class TaskPutBodyRequest {
-    public String name;
-    public String details;
-
+    Long id;
+    String title;
+    String description;
+    String createdDate;
 }

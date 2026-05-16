@@ -2,6 +2,7 @@ package com.taskmanager.taskmanager.controller;
 
 import com.taskmanager.taskmanager.domain.Task;
 import com.taskmanager.taskmanager.requested.TaskPostBodyRequest;
+import com.taskmanager.taskmanager.requested.TaskPutBodyRequest;
 import com.taskmanager.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -37,13 +38,15 @@ public class TaskController {
         return new  ResponseEntity<>(taskService.createTask(task), HttpStatus.CREATED);
     }
 
-//    @DeleteMapping
-//    public ResponseEntity<Void> deleteTask(){
-//
-//    }
-//
-//    @PutMapping
-//    public ResponseEntity<Void> updateTask(){
-//
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
+        taskService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateTask(@RequestBody TaskPutBodyRequest taskPutBodyRequest){
+        taskService.updateTask(taskPutBodyRequest);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
