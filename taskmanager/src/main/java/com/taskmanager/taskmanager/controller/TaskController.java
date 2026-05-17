@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,11 +28,10 @@ public class TaskController {
         return new ResponseEntity<>(taskService.listAllTasks(), HttpStatus.OK);
     }
 
-//
-//    @GetMapping
-//    public ResponseEntity<Task> searchById(){
-//
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> searchById(@PathVariable("id") long id){
+        return ResponseEntity.ok(taskService.findByIdOrThrowBadRequestExeption(id));
+    }
 
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody @Valid TaskPostBodyRequest task){

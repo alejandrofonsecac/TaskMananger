@@ -9,8 +9,10 @@ import com.taskmanager.taskmanager.requested.TaskPutBodyRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -26,11 +28,6 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task findByIdOrThrowBadRequestExeption(long id){
-        return taskRepository.findById(id)
-                .orElseThrow(() -> new BadRequestExeption("Anime not found"));
-    }
-
     public void delete(Long id){
         taskRepository.delete(findByIdOrThrowBadRequestExeption(id));
     }
@@ -39,16 +36,15 @@ public class TaskService {
         Task task = findByIdOrThrowBadRequestExeption(request.getId());
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
-        task.setCreatedDate(request.getCreatedDate());
         taskRepository.save(task);
-
     }
 
     public List<Task> listAllTasks(){
         return taskRepository.findAll();
     }
-//
-//    public Task searchTask(Long id){
-//
-//    }
+
+    public Task findByIdOrThrowBadRequestExeption(long id){
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new BadRequestExeption("Anime not found"));
+    }
 }

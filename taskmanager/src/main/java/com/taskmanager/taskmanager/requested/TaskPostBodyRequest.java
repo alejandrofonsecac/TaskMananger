@@ -6,10 +6,8 @@ import lombok.Data;
 
 @Data
 public class TaskPostBodyRequest {
-
     @NotEmpty(message = "It cannot be empty.")
     @NotNull(message = "It cannot be null.")
     public String title;
     public String description;
-    public String createdDate;
 }
